@@ -27,7 +27,7 @@ val trainingData = splits(0)
 val testData = splits(1)
 
 
-val model1 = new LogisticRegressionWithLBFGS().setIntercept(true).setNumClasses(2).run(trainingData)
+val model1 = new LogisticRegressionWithSGD().setIntercept(true).run(trainingData)
 
 // Evaluate trained model on training data by forming (label, predicted label) pairs
 val labelAndPredsTraining= trainingData.map { point =>
@@ -46,7 +46,7 @@ val trainingError = labelAndPredsTraining.filter(r => r._1 == r._2).count.toDoub
 val testingError = labelAndPredsTesting.filter(r => r._1 == r._2).count.toDouble / testData.count
 
 
-printf("Result using Random Split\n")
+printf("Result using Random Split and SGD\n")
 printf("Prediction reliability on trained data = %.2f%%\n", (100*trainingError))
 printf("Prediction reliability on testing data = %.2f%%\n", (100*testingError))
 
